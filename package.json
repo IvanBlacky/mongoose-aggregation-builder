@@ -1,6 +1,6 @@
 {
   "name": "mongoose-aggregation-builder",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "The MongoDB aggregation pipeline builder for mongoose",
   "main": "src/Builder.js",
   "scripts": {
