@@ -1,7 +1,7 @@
 const Executor = require("./Executor");
 
 class Builder {
-  constructor(model, {skipModelCheck = false} = {skipModelCheck: false}) {
+  constructor(model, { skipModelCheck = false } = { skipModelCheck: false }) {
     if (typeof model.aggregate !== "function" && !skipModelCheck) {
       throw new Error("Model is not a mongoose model");
     }
