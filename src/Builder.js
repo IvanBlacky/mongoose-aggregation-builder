@@ -241,7 +241,7 @@ class Builder {
   unwind({ path, includeArrayIndex, preserveNullAndEmptyArrays }) {
     this._checkParams(
       { path, includeArrayIndex, preserveNullAndEmptyArrays },
-      ["pathToField"],
+      ["path"],
       "unwind"
     );
 
