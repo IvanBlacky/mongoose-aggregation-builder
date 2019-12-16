@@ -1,0 +1,31 @@
+{
+  "name": "mongoose-aggregation-builder",
+  "version": "0.1.0",
+  "description": "The MongoDB aggregation pipeline builder for mongoose",
+  "main": "src/Builder.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "IvanBlacky <tcherivan@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "mongoose": "^5.8.1",
+    "prettier": "^1.19.1"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvanBlacky/mongoose-aggregation-builder.git"
+  },
+  "keywords": [
+    "mongo",
+    "mongodb",
+    "mongoose",
+    "aggregation",
+    "backend"
+  ],
+  "bugs": {
+    "url": "https://github.com/IvanBlacky/mongoose-aggregation-builder/issues"
+  },
+  "homepage": "https://github.com/IvanBlacky/mongoose-aggregation-builder#readme"
+}
