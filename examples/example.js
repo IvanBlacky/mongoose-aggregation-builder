@@ -5,14 +5,24 @@ mongoose.connect("mongodb://localhost:27017/test", {
   useUnifiedTopology: true
 });
 
-const Cat = mongoose.model("Cat", { name: String, color: String });
+const Cat = mongoose.model("Cat", {
+  name: String,
+  color: String,
+  paws: [String]
+});
 const getBlackCatsNames = new Builder(Cat, { skipModelCheck: false })
   .match({ color: "black" })
-  .project({ _id: false, name: true })
+  .project({ _id: false, name: true, paws: true })
+  .unwind({ path: "$paws" })
+  .limit(1)
   .build();
 
 async function createCat(name, color) {
-  const kitty = new Cat({ name, color });
+  const kitty = new Cat({
+    name,
+    color,
+    paws: ["first", "second", "third", "fourth"]
+  });
   await kitty.save();
 }
 
