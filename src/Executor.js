@@ -10,7 +10,7 @@ class Executor {
   }
 
   async exec() {
-    return await this.model.aggregate(this.pipeline);
+    return this.model.aggregate(this.pipeline);
   }
 }
 
