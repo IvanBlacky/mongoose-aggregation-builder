@@ -306,6 +306,10 @@ class Builder {
   build() {
     return new Executor(this.model, this.pipeline);
   }
+
+  async buildAndExec() {
+    return await this.build().exec();
+  }
 }
 
 module.exports = Builder;
