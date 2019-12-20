@@ -26,24 +26,48 @@ class Builder {
     }
   }
 
+  _omitNulls(params) {
+    const sanitizedParams = {};
+
+    for (const paramName of Object.keys(params)) {
+      if (params[paramName]) {
+        sanitizedParams[paramName] = params[paramName];
+      }
+    }
+
+    return sanitizedParams;
+  }
+
   match(filter) {
     this._checkParams({ filter }, ["filter"], "match");
 
-    this.pipeline.push({ $match: filter });
+    this.pipeline.push({
+      $match: this._omitNulls({
+        ...filter
+      })
+    });
     return this;
   }
 
   project(projection) {
     this._checkParams({ projection }, ["projection"], "project");
 
-    this.pipeline.push({ $project: projection });
+    this.pipeline.push({
+      $project: this._omitNulls({
+        ...projection
+      })
+    });
     return this;
   }
 
   addFields(newFields) {
     this._checkParams({ newFields }, ["newFields"], "addFields");
 
-    this.pipeline.push({ $addFields: newFields });
+    this.pipeline.push({
+      $addFields: this._omitNulls({
+        ...newFields
+      })
+    });
     return this;
   }
 
@@ -55,7 +79,12 @@ class Builder {
     );
 
     this.pipeline.push({
-      $bucket: { groupBy, boundaries, default: def, output }
+      $bucket: this._omitNulls({
+        groupBy,
+        boundaries,
+        default: def,
+        output
+      })
     });
     return this;
   }
@@ -68,7 +97,12 @@ class Builder {
     );
 
     this.pipeline.push({
-      $bucketAuto: { groupBy, buckets, output, granularity }
+      $bucketAuto: this._omitNulls({
+        groupBy,
+        buckets,
+        output,
+        granularity
+      })
     });
     return this;
   }
@@ -77,7 +111,11 @@ class Builder {
     this._checkParams({ latency, storageStats, count }, [], "collStats");
 
     this.pipeline.push({
-      $collStats: { latency, storageStats, count }
+      $collStats: this._omitNulls({
+        latency,
+        storageStats,
+        count
+      })
     });
     return this;
   }
@@ -107,7 +145,9 @@ class Builder {
     this._checkParams({ geoNear }, ["geoNear"], "geoNear");
 
     this.pipeline.push({
-      $geoNear: geoNear
+      $geoNear: this._omitNulls({
+        ...geoNear
+      })
     });
     return this;
   }
@@ -120,14 +160,14 @@ class Builder {
     );
 
     this.pipeline.push({
-      $graphLookup: {
+      $graphLookup: this._omitNulls({
         from,
         startWith,
         connectFromField,
         as,
         maxDepth,
         depthField
-      }
+      })
     });
     return this;
   }
@@ -136,7 +176,9 @@ class Builder {
     this._checkParams({ group }, ["group"], "group");
 
     this.pipeline.push({
-      $group: group
+      $group: this._omitNulls({
+        ...group
+      })
     });
     return this;
   }
@@ -165,12 +207,12 @@ class Builder {
     );
 
     this.pipeline.push({
-      $graphLookup: {
+      $lookup: this._omitNulls({
         from,
         localField,
         foreignField,
         as
-      }
+      })
     });
     return this;
   }
@@ -188,7 +230,9 @@ class Builder {
     this._checkParams({ redact }, ["redact"], "redact");
 
     this.pipeline.push({
-      $redact: redact
+      $redact: this._omitNulls({
+        ...redact
+      })
     });
     return this;
   }
@@ -197,7 +241,9 @@ class Builder {
     this._checkParams({ replaceRoot }, ["replaceRoot"], "replaceRoot");
 
     this.pipeline.push({
-      $replaceRoot: replaceRoot
+      $replaceRoot: this._omitNulls({
+        ...replaceRoot
+      })
     });
     return this;
   }
@@ -224,7 +270,9 @@ class Builder {
     this._checkParams({ sort }, ["sort"], "sort");
 
     this.pipeline.push({
-      $sort: sort
+      $sort: this._omitNulls({
+        ...sort
+      })
     });
     return this;
   }
@@ -246,7 +294,11 @@ class Builder {
     );
 
     this.pipeline.push({
-      $unwind: { path, includeArrayIndex, preserveNullAndEmptyArrays }
+      $unwind: this._omitNulls({
+        path,
+        includeArrayIndex,
+        preserveNullAndEmptyArrays
+      })
     });
     return this;
   }
