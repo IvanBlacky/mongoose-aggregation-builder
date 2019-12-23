@@ -1,7 +1,7 @@
 const Executor = require("./Executor");
 
 class Builder {
-  constructor(model, { skipModelCheck = false } = { skipModelCheck: false }) {
+  constructor(model, { skipModelCheck = false } = {}) {
     if (typeof model.aggregate !== "function" && !skipModelCheck) {
       throw new Error("Model is not a mongoose model");
     }
@@ -30,7 +30,7 @@ class Builder {
     const sanitizedParams = {};
 
     for (const paramName of Object.keys(params)) {
-      if (params[paramName]) {
+      if (![undefined, NaN, null, ""].includes(params[paramName])) {
         sanitizedParams[paramName] = params[paramName];
       }
     }

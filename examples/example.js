@@ -10,7 +10,8 @@ const Cat = mongoose.model("Cat", {
   color: String,
   paws: [String]
 });
-const getBlackCatsNames = new Builder(Cat, { skipModelCheck: false })
+
+const getBlackCatsNames = new Builder(Cat)
   .match({ color: "black" })
   .project({ _id: false, name: true, paws: true })
   .unwind({ path: "$paws" })
